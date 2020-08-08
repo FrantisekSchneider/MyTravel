@@ -1,19 +1,16 @@
 package de.openvalue.travel.search.domain.application.service
 
 import de.openvalue.travel.search.domain.model.City
-import de.openvalue.travel.search.port.input.FindCitiesUseCase
+import de.openvalue.travel.search.port.input.rest.FindCitiesUseCase
 import de.openvalue.travel.search.port.output.db.CityPersistencePort
-import java.time.Duration
-import org.springframework.stereotype.Service
-import reactor.core.publisher.Flux
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.take
 
-@Service
 class CityService(private val cityPersistencePort: CityPersistencePort) : FindCitiesUseCase {
 
-	override fun findBy(query: FindCitiesUseCase.FindCitiesQuery): Flux<City> {
+	override fun findBy(query: FindCitiesUseCase.FindCitiesQuery): Flow<City> {
 		return cityPersistencePort
-			.findByNameAndCountry(query.name!!, query.countryCode!!)
-			.delayElements(Duration.ofSeconds(1))
-			.take(query.limit!!.toLong())
+			.findByNameAndCountry(query.name, query.countryCode)
+			.take(query.limit.toInt())
 	}
 }

@@ -1,9 +1,10 @@
 package de.openvalue.travel.search.port.output.db
 
 import de.openvalue.travel.search.domain.model.City
-import reactor.core.publisher.Flux
+import kotlinx.coroutines.flow.Flow
 
 interface CityPersistencePort {
 
-	fun findByNameAndCountry(name: String, country: String): Flux<City>
+	fun findByNameAndCountry(name: String, country: String): Flow<City>
+
 }

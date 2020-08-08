@@ -16,6 +16,7 @@ repositories {
 }
 
 val valiktorVersion: String by project
+val archunitVersion: String by project
 
 dependencies {
     // actuator
@@ -24,8 +25,7 @@ dependencies {
 	//db
 	implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
 	implementation("org.liquibase:liquibase-core")
-	implementation("com.zaxxer:HikariCP:3.2.0")
-	runtimeOnly("com.h2database:h2")
+	implementation("com.h2database:h2")
 	runtimeOnly("io.r2dbc:r2dbc-h2")
 
 	// reactive spring
@@ -47,6 +47,9 @@ dependencies {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
     testImplementation("io.projectreactor:reactor-test")
+	testImplementation("io.rest-assured:rest-assured")
+	testImplementation("com.tngtech.archunit:archunit-junit5-api:$archunitVersion")
+	testRuntimeOnly("com.tngtech.archunit:archunit-junit5-engine:$archunitVersion")
 }
 
 tasks.withType<Test> {

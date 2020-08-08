@@ -1,13 +1,13 @@
 package de.openvalue.travel.infrastucture.liquibase
 
-import com.zaxxer.hikari.HikariDataSource
-import javax.annotation.PostConstruct
 import liquibase.integration.spring.SpringLiquibase
+import org.h2.jdbcx.JdbcDataSource
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.jdbc.DataSourceBuilder
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.PropertySource
 import org.springframework.core.io.DefaultResourceLoader
+import javax.annotation.PostConstruct
 
 @Configuration
 @PropertySource("classpath:liquibase.properties")
@@ -31,9 +31,10 @@ class SchemaMigration {
 	@Value("\${liquibase.datasource.username}")
 	private lateinit var username: String
 
+	private val springLiquibase: SpringLiquibase = SpringLiquibase()
+
 	@PostConstruct
 	fun initDB() {
-		val springLiquibase = SpringLiquibase()
 
 		with(springLiquibase) {
 			changeLog = this@SchemaMigration.changeLog
@@ -50,7 +51,7 @@ class SchemaMigration {
 		url(this@SchemaMigration.url)
 		username(this@SchemaMigration.username)
 		password(this@SchemaMigration.password)
-		type(HikariDataSource::class.java)
+		type(JdbcDataSource::class.java)
 		build()
 	}
 }
