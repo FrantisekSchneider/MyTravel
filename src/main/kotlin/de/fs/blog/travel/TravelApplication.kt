@@ -4,10 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication(proxyBeanMethods = false)
-class TravelApplication {
+class TravelApplication
 
-	fun main(args: Array<String>) {
-		runApplication<TravelApplication>(*args)
-	}
+fun main(args: Array<String>) {
+	runApplication<TravelApplication>(*args)
 }
-
