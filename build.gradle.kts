@@ -5,6 +5,11 @@ plugins {
 	id("io.spring.dependency-management") version "1.0.9.RELEASE"
 	kotlin("jvm") version "1.4.0"
 	kotlin("plugin.spring") version "1.4.0"
+
+	id("org.jmailen.kotlinter") version "3.0.2"
+	id("org.jetbrains.kotlin.kapt") version "1.4.0"
+
+	id("com.palantir.graal") version "0.7.1"
 }
 
 group = "de.fs.blog.travel"
@@ -53,6 +58,8 @@ dependencies {
 
 	testImplementation("com.tngtech.archunit:archunit-junit5-api:$archunitVersion")
 	testRuntimeOnly("com.tngtech.archunit:archunit-junit5-engine:$archunitVersion")
+
+//	compileOnly("org.springframework.experimental:spring-graalvm-native:0.8.0-SNAPSHOT")
 }
 
 tasks.withType<Test> {
@@ -61,8 +68,7 @@ tasks.withType<Test> {
 
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
-		freeCompilerArgs = listOf("-Xjsr305=strict")
+		freeCompilerArgs = listOf("-Xjsr305=strict", "-Xallow-result-return-type")
 		jvmTarget = "11"
-		useIR = true
 	}
 }
