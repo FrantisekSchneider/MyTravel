@@ -4,7 +4,6 @@ import de.openvalue.magic.search.application.FindCityService
 import de.openvalue.magic.search.infrastructure.FakeCityRepository
 import de.openvalue.magic.search.infrastructure.H2CityRepository
 import de.openvalue.magic.search.web.CityHandler
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.ApplicationContextInitializer
 import org.springframework.context.support.BeanDefinitionDsl
 import org.springframework.context.support.GenericApplicationContext
@@ -35,6 +34,5 @@ internal class SearchConfiguration : ApplicationContextInitializer<GenericApplic
 
         // register use case components - domain logic
         bean<FindCityService>()
-
     }
 }
