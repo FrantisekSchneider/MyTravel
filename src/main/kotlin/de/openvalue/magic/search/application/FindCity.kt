@@ -9,20 +9,11 @@ interface FindCity {
     suspend fun by(query: FindCityQuery): Flow<CityModel>
 
     data class FindCityQuery(
-        val name: String,
-        val countryCode: String,
-        val limit: Int
+        val name: String
     ) {
         init {
             validate(this) {
                 validate(FindCityQuery::name).isNotEmpty()
-                validate(FindCityQuery::countryCode).isNotEmpty()
-                validate(
-                    this,
-                    {
-                        limit in 1..10
-                    }
-                )
             }
         }
     }

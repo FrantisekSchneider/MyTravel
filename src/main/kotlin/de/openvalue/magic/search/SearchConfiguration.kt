@@ -4,6 +4,7 @@ import de.openvalue.magic.search.application.FindCityService
 import de.openvalue.magic.search.infrastructure.FakeCityRepository
 import de.openvalue.magic.search.infrastructure.H2CityRepository
 import de.openvalue.magic.search.web.CityHandler
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.ApplicationContextInitializer
 import org.springframework.context.support.BeanDefinitionDsl
 import org.springframework.context.support.GenericApplicationContext
@@ -12,7 +13,9 @@ import org.springframework.http.MediaType
 import org.springframework.web.reactive.function.server.coRouter
 
 internal class SearchConfiguration : ApplicationContextInitializer<GenericApplicationContext> {
-    override fun initialize(context: GenericApplicationContext) = beans(context).initialize(context)
+    override fun initialize(context: GenericApplicationContext) {
+        beans(context).initialize(context)
+    }
 
     private fun beans(context: GenericApplicationContext): BeanDefinitionDsl = beans {
         // register REST api handlers
@@ -24,7 +27,7 @@ internal class SearchConfiguration : ApplicationContextInitializer<GenericApplic
         }
 
         // register H2 persistence adapters
-        if (context.environment.getProperty("FAKE_REPO_ENABLED") == "true") {
+        if (context.environment.activeProfiles.contains("fakeDatabaseProfile")) {
             bean<FakeCityRepository>()
         } else {
             bean<H2CityRepository>()
@@ -32,5 +35,6 @@ internal class SearchConfiguration : ApplicationContextInitializer<GenericApplic
 
         // register use case components - domain logic
         bean<FindCityService>()
+
     }
 }

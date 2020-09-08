@@ -4,5 +4,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface CityRepository {
 
-    suspend fun findAllByNameContainsAndCountry(name: String, country: String): Flow<City>
+    suspend fun findAllByNameLike(name: String): Flow<City>
 }

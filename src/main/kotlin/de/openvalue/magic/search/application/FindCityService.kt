@@ -8,10 +8,10 @@ import kotlinx.coroutines.flow.take
 class FindCityService(private val repository: CityRepository) : FindCity {
 
     override suspend fun by(query: FindCity.FindCityQuery): Flow<CityModel> {
-        return repository.findAllByNameContainsAndCountry(query.name, query.countryCode)
+        return repository.findAllByNameLike(query.name)
             .map {
                 CityModel(it.name, it.country, it.lat, it.lng)
             }
-            .take(query.limit)
+            .take(10)
     }
 }

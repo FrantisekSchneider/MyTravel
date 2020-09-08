@@ -5,7 +5,7 @@ import kotlinx.coroutines.reactive.asFlow
 
 class H2CityRepository(private val cityRepository: ReactiveCityRepository) : CityRepository {
 
-    override suspend fun findAllByNameContainsAndCountry(name: String, country: String): Flow<City> {
-        return cityRepository.findAllByNameContainsAndCountry(name, country).asFlow()
+    override suspend fun findAllByNameLike(name: String): Flow<City> {
+        return cityRepository.findAllByNameContains(name).asFlow()
     }
 }

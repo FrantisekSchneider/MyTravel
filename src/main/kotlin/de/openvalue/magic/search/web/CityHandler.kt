@@ -8,8 +8,6 @@ import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.bodyAndAwait
 
-private const val DEFAULT_LIMIT: Int = 10
-
 class CityHandler(private val findCity: FindCity) {
 
     suspend fun findCities(request: ServerRequest): ServerResponse {
@@ -23,9 +21,7 @@ class CityHandler(private val findCity: FindCity) {
         val queryParams: MultiValueMap<String, String> = request.queryParams()
 
         return FindCity.FindCityQuery(
-            name = queryParams.getFirst("name") ?: "",
-            countryCode = queryParams.getFirst("countryCode") ?: "",
-            limit = queryParams.getFirst("limit")?.toInt() ?: DEFAULT_LIMIT
+            name = queryParams.getFirst("name") ?: "Pra",
         )
     }
 }
