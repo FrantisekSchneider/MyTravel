@@ -5,5 +5,5 @@ import reactor.core.publisher.Flux
 
 interface ReactiveCityRepository : ReactiveCrudRepository<City, Long> {
 
-    suspend fun findAllByNameContains(name: String): Flux<City>
+    fun findAllByNameContains(name: String): Flux<City>
 }

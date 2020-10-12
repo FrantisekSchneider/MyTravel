@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.take
 
 class FindCityService(private val repository: CityRepository) : FindCity {
 
-    override suspend fun by(query: FindCity.FindCityQuery): Flow<CityModel> {
+    override fun by(query: FindCity.FindCityQuery): Flow<CityModel> {
         return repository.findAllByNameLike(query.name)
             .map {
                 CityModel(it.name, it.country, it.lat, it.lng)

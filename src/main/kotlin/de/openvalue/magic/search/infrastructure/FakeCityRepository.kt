@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flowOf
 
 class FakeCityRepository : CityRepository {
-    override suspend fun findAllByNameLike(name: String): Flow<City> {
+    override fun findAllByNameLike(name: String): Flow<City> {
         return flowOf(
             City(1L, "CZ", "Pilsen", 1.20323, 2.2323),
             City(2L, "CZ", "Prague", 1.3232, 4.2323),

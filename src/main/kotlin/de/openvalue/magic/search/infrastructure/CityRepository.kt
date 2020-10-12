@@ -4,5 +4,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface CityRepository {
 
-    suspend fun findAllByNameLike(name: String): Flow<City>
+    fun findAllByNameLike(name: String): Flow<City>
 }
